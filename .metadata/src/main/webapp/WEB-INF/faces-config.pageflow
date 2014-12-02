@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13961903956990" configfile="/GooglePlayAndiTunesCrawler/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="946" id="pf13961904167251" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13961904167262 pf13961904167263 pf13961904167264 pf13961904167265 pf13961904167266" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="start.xhtml" x="338" y="178" id="pf13961904167267" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13961904167262" path="start.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="move.xhtml" x="338" y="562" id="pf13961904167268" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf13961904167263" path="move.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="338" y="946" id="pf13961904167279" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf13961904167264" path="login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="people.xhtml" x="338" y="1330" id="pf139619041672710" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf13961904167265" path="people.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="information.xhtml" x="338" y="1714" id="pf139619041672711" referenceLink="//@navigationRule.0/@navigationCase.4/@toViewId|" inlinks="pf13961904167266" path="information.xhtml"/>
+  <links id="pf13961904167262" target="pf13961904167267" source="pf13961904167251" outcome="start" redirect="true"/>
+  <links id="pf13961904167263" target="pf13961904167268" source="pf13961904167251" outcome="move" redirect="true"/>
+  <links id="pf13961904167264" target="pf13961904167279" source="pf13961904167251" outcome="login" redirect="true"/>
+  <links id="pf13961904167265" target="pf139619041672710" source="pf13961904167251" outcome="people" redirect="true"/>
+  <links id="pf13961904167266" target="pf139619041672711" source="pf13961904167251" outcome="information" redirect="true"/>
+</pageflow:Pageflow>
