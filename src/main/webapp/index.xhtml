@@ -11,8 +11,37 @@
 	<title></title>
 </h:head>
 <h:body>
-	<h:outputStylesheet library="css" name="ichzieheum-informieren.css" />
-	<h1>hell</h1>
+	<h1>Series Of Crawler</h1>
+	<h:outputStylesheet library="css" name="style.css" />
+	<div>
+
+		<h3 style="display:block; float:left;">Algorithm</h3>
+		<p:selectOneMenu value="" style="display:block; float:left;" id="algorithm">
+			<f:selectItem itemLabel="BFS " itemValue="60" />
+			<f:selectItem itemLabel="Harmony " itemValue="120" />
+
+		</p:selectOneMenu>
+
+
+		<h:form id="form" style="display:block; float:left;" enctype="multipart/form-data">
+			<h:inputFile id="file" value="#{bean.file}" />
+			<h:commandButton value="Upload" action="#{bean.upload}" />
+		</h:form>
+	</div>
+	<div style="clear:both;"></div>
+	<p:dataTable value="#{googleCrawlerBean.dataList}" var="dataItem"
+		scrollable="true" scrollHeight="500">
+
+		<p:column headerText="Child Url" width="40">
+			<h:outputText value="#{dataItem.appName}" />
+		</p:column>
+
+		<p:column headerText="Parent Url" width="40">
+			<h:outputText value="#{dataItem.category}" />
+		</p:column>
+
+	</p:dataTable>
+
 
 </h:body>
 </html>

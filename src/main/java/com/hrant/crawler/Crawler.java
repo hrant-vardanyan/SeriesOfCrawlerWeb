@@ -1,14 +1,8 @@
 package com.hrant.crawler;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 
@@ -27,22 +21,34 @@ import com.hrant.utils.Constants;
  * BFS Crawler
  * Author: Hrant Vardanyan
  */
-public class BFSCrawler {
+public class Crawler {
 
-	private static final Logger LOGGER = Logger.getLogger(BFSCrawler.class);
+	private static final Logger LOGGER = Logger.getLogger(Crawler.class);
 
 	/*
 	 * Simple testing
 	 */
 	public static void main(String[] args) throws IOException {
 
-		BFSCrawler bfsCrawler = new BFSCrawler();
+		Crawler crawler = new Crawler();
 
 		LinkedList<String> queue = new LinkedList<>();
 		queue.add("http://ceng.gazi.edu.tr/~ozdemir/");
-		bfsCrawler.bfsLogic(queue);
+		crawler.bfsLogic(queue);
 
 	}
+	
+	
+	/*
+	 * Harmony main logic
+	 */
+	public void harmonyLogic(){
+		
+		
+		
+	}
+	
+	
 
 	/*
 	 * BFS main logic
@@ -160,43 +166,13 @@ public class BFSCrawler {
 
 			if (!StringUtils.isEmpty(link)) {
 				// Url is not empty, filter socials and add to set
-				if (!link.contains("facebook") && !link.contains("twitter")) {
+				if (!link.contains("facebook") && !link.contains("twitter") && !link.contains("linkedin")) {
 					linkSet.add(link);
 				}
 			}
 		}
 
 		return linkSet;
-	}
-
-	/*
-	 * Read initial urls from text file
-	 */
-	public static List<String> readLinksInTXT(Path inputPath) {
-		File file = new File(inputPath.toString());
-		List<String> linkList = new ArrayList<>();
-
-		try {
-			FileReader reader = new FileReader(file);
-			char[] chars = new char[(int) file.length()];
-			reader.read(chars);
-			String content = new String(chars);
-			String linksArray[] = content.split("\\r?\\n");
-			List<String> linkListWithEmptyLines = Arrays.asList(linksArray);
-
-			for (String link : linkListWithEmptyLines) {
-				if (!StringUtils.isEmpty(link)) {
-					link = java.net.URLDecoder.decode(link, "UTF-8");
-					linkList.add(link);
-				}
-			}
-
-			reader.close();
-		} catch (IOException e) {
-			LOGGER.error("Exception getting data from  " + inputPath, e);
-		}
-
-		return linkList;
 	}
 
 }
