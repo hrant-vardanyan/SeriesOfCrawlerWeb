@@ -17,6 +17,7 @@ public class UrlEntry {
 	private int id;
 	private String parentUrl;
 	private String childUrl;
+	private boolean harmonyScore;
 
 	public int getId() {
 		return id;
@@ -40,6 +41,14 @@ public class UrlEntry {
 
 	public void setChildUrl(String childUrl) {
 		this.childUrl = childUrl;
+	}
+
+	public boolean isHarmonyScore() {
+		return harmonyScore;
+	}
+
+	public void setHarmonyScore(boolean harmonyScore) {
+		this.harmonyScore = harmonyScore;
 	}
 
 }

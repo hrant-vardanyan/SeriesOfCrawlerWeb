@@ -12,6 +12,7 @@ public class Constants {
 	public static final int TIMEOUT = 10_000;
 	public static volatile boolean flag = false;
 	public static Pattern REGEX_DOMAIN = Pattern.compile("((http://|https://).*?)/");
+	public static Pattern REGEX_SUBDIRECTORY = Pattern.compile("/\\w+");
 	
 
 }

@@ -47,7 +47,7 @@ public class OlxDAO {
 	/*
 	 * Entry Saver
 	 */
-	private void addMessage(UrlEntry urlEntry) {
+	public void addMessage(UrlEntry urlEntry) {
 		EntityManager entityManager = null;
 		try {
 			// Open connection and save entity
