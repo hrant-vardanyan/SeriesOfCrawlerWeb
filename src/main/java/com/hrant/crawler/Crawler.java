@@ -33,7 +33,7 @@ public class Crawler {
 
 		Crawler crawler = new Crawler();
 		LinkedList<String> queue = new LinkedList<>();
-		queue.add("http://ceng.gazi.edu.tr/~ozdemir/");
+		queue.add("http://www.cypherincorporated.co.in/");
 		crawler.bfsLogic(queue, 2, 0.7);
 
 	}
@@ -41,36 +41,46 @@ public class Crawler {
 	/*
 	 * Harmony main logic
 	 */
-	private void harmonyLogic(Set<String> childUrlSet, int hms, double hmsr, String parent) {
-		// Get HM
+	private void harmonyLogic(Set<String> childUrlSet, int hms, double hmcr, String parent) {
+		// Step 1: Initialize Harmony Memory (HM)
+		// HMS is size of HM
 		Set<String> hm = getRandomSet(childUrlSet, hms);
-		for (int i = 0; i < 5; i++) {
-			// Generate random number
+		
+		// Stopping criteria is - 7 loops of harmony reached
+		// Max harmony loops would be given by user (now hardcoded)
+		for (int i = 0; i < 7; i++) {
+			// Step 2.1: Check if new url must be selected for HM
+			// Generate random number and check if it is smaller then HMCR
 			Random rand = new Random();
 			double randNumber = rand.nextDouble() * (1);
-			if (randNumber < hmsr) {
-				// Randomly choose other url and its level
+			
+			if (randNumber < hmcr) {
+				// Step 2.2: A random url must be taken from all urls set
 				String randUrl = getRandomItemInSet(childUrlSet);
-				int subDirLevel = getSubDirectoryLevelOfUrl(randUrl);
+				// Compute the subdirectory level of that url
+				int randUrlSubDirLevel = getSubDirectoryLevelOfUrl(randUrl);
 
-				// Get worst case in HM
-				String worstLevelUrl = "";
-				int worstLev = 1;
+				// Step 3.1: Get worst case in HM (maximum url)
+				// Worst case (maximum url) is the url with maximum number of subdirectories
+				String worstHMUrl = "";
+				int worstHMUrlSubDirLevel = 1;
 				for (String currUrl : hm) {
 					int currLevel = getSubDirectoryLevelOfUrl(currUrl);
-					if (worstLev < currLevel) {
-						worstLevelUrl = currUrl;
-						worstLev = currLevel;
+					if (worstHMUrlSubDirLevel < currLevel) {
+						worstHMUrl = currUrl;
+						worstHMUrlSubDirLevel = currLevel;
 					}
 				}
 
-				// If random url is better then HM worse case,
-				// Replace worst case with random url
-				if (subDirLevel < worstLev) {
-					hm.remove(worstLevelUrl);
+				// Step 3.2: Check if randUrl minimizes the HM
+				// (has less subdirectories then worstHMUrl)
+				if (randUrlSubDirLevel < worstHMUrlSubDirLevel) {
+					// Step 3.3: It minimizes
+					// Replce worstHMUrl with randUrl (minimize the HM)
+					hm.remove(worstHMUrl);
 					hm.add(randUrl);
 
-					// Save entry in database
+					// Save randUrl in database
 					UrlEntry urlEntry = new UrlEntry();
 					urlEntry.setChildUrl(randUrl);
 					urlEntry.setParentUrl(parent);
@@ -82,6 +92,7 @@ public class Crawler {
 					}
 				}
 			} else {
+				// randUrl is not minimizing the HM, continue (goto step 2)
 				continue;
 			}
 		}
@@ -104,7 +115,7 @@ public class Crawler {
 	 * Generated Random Set (HM) based on 'HMS'
 	 */
 	private Set<String> getRandomSet(Set<String> set, int hms) {
-
+		
 		Set<String> randomSet = new HashSet<>();
 		if (set.size() <= hms) {
 			hms = set.size() - 1;
@@ -135,7 +146,7 @@ public class Crawler {
 	/*
 	 * BFS main logic
 	 */
-	private void bfsLogic(LinkedList<String> queue, int hms, double hmsr) {
+	private void bfsLogic(LinkedList<String> queue, int hms, double hmcr) {
 		// Set to hold all passed urls
 		// And check for them being unique (HashSet class holds only unique
 		// objects)
@@ -183,7 +194,7 @@ public class Crawler {
 
 				}
 				if (!harmonyLinks.isEmpty()) {
-					harmonyLogic(harmonyLinks, hms, hmsr, currUrl);
+					harmonyLogic(harmonyLinks, hms, hmcr, currUrl);
 				}
 
 			} catch (IOException e) {
